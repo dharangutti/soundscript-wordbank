@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://soundscript.net/schemas/wordbank/syllabification.schema.json",
+  "title": "Syllabification Rules",
+  "type": "object",
+  "required": [
+    "version",
+    "locale",
+    "vowelLetters",
+    "accentedVowels",
+    "treatYAsVowel",
+    "silentTerminalE",
+    "consonantLeNucleus",
+    "maxOnsetClusterLength",
+    "nucleusDigraphs"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "integer", "minimum": 1 },
+    "locale": { "type": "string" },
+    "description": { "type": "string" },
+    "vowelLetters": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1, "maxLength": 2 }
+    },
+    "accentedVowels": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1, "maxLength": 2 }
+    },
+    "treatYAsVowel": { "type": "boolean" },
+    "silentTerminalE": { "type": "boolean" },
+    "consonantLeNucleus": { "type": "boolean" },
+    "maxOnsetClusterLength": { "type": "integer", "minimum": 1, "maximum": 4 },
+    "nucleusDigraphs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 2 }
+    }
+  },
+  "additionalProperties": false
+}
