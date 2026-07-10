@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://soundscript.net/schemas/wordbank/phoneme-timbre.schema.json",
+  "title": "Phoneme Timbre Profiles",
+  "type": "object",
+  "required": ["version", "locale", "default", "phonemes"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "integer", "minimum": 1 },
+    "locale": { "type": "string" },
+    "description": { "type": "string" },
+    "default": { "$ref": "#/$defs/profile" },
+    "phonemes": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          { "$ref": "#/$defs/profile" },
+          {
+            "type": "object",
+            "required": ["phoneme"],
+            "properties": {
+              "phoneme": { "type": "string", "minLength": 1 }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "profile": {
+      "type": "object",
+      "properties": {
+        "phoneme": { "type": "string" },
+        "burstMs": { "type": "number", "minimum": 0 },
+        "noise": { "type": "number", "minimum": 0, "maximum": 1 },
+        "brightness": { "type": "number", "minimum": 0, "maximum": 1 },
+        "formant1Hz": { "type": "number", "minimum": 0 },
+        "formant2Hz": { "type": "number", "minimum": 0 },
+        "formant3Hz": { "type": "number", "minimum": 0 },
+        "formant1BwHz": { "type": "number", "minimum": 0 },
+        "formant2BwHz": { "type": "number", "minimum": 0 },
+        "formant3BwHz": { "type": "number", "minimum": 0 },
+        "smoothness": { "type": "number", "minimum": 0, "maximum": 1 },
+        "nasal": { "type": "number", "minimum": 0, "maximum": 1 },
+        "openness": { "type": "number", "minimum": 0, "maximum": 1 },
+        "harmonic1": { "type": "number", "minimum": 0, "maximum": 1 },
+        "harmonic2": { "type": "number", "minimum": 0, "maximum": 1 },
+        "harmonic3": { "type": "number", "minimum": 0, "maximum": 1 },
+        "noiseFricative": { "type": "number", "minimum": 0, "maximum": 1 },
+        "noisePlosive": { "type": "number", "minimum": 0, "maximum": 1 },
+        "transientMs": { "type": "number", "minimum": 0 },
+        "harmonicRolloff": {
+          "type": "string",
+          "enum": ["default", "exponential", "linear", "polynomial"]
+        },
+        "formantQ": { "type": "number", "minimum": 0 },
+        "noiseBandHz": { "type": "number", "minimum": 0 },
+        "frameSmoothing": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -4,13 +4,13 @@ Deterministic linguistic data for [SoundScript](https://github.com/dharangutti/s
 
 SoundScript's engines are built around a strict determinism guarantee: the same input text must always produce the same output on every platform. Today much of that linguistic knowledge lives as hard-coded tables inside the main repository (`FunctionWords`, `PhonemeMapper`, `Syllabifier`, and others). This repository extracts that data into versioned JSON so it can evolve independently, be reviewed as data, and eventually be consumed at runtime by SoundScript.
 
-## What's included (v0.2.0)
+## What's included (v0.3.0)
 
 | Locale | Status | Notes |
 |--------|--------|-------|
-| `en` | Complete | 34-word `common.json` dictionary, full phoneme/prosody tables |
-| `es` | Starter | Spanish function words, grapheme rules, 10 demo word entries |
-| `fr` | Starter | French function words, grapheme rules, 10 demo word entries |
+| `en` | Complete | 34-word `common.json` dictionary, full phoneme/prosody/timbre tables |
+| `es` | Starter | Spanish function words, grapheme rules, locale syllabification, 10 demo word entries |
+| `fr` | Starter | French function words, grapheme rules, nasal digraph syllabification, 10 demo word entries |
 
 Per-locale files:
 
@@ -23,6 +23,8 @@ Per-locale files:
 | `legal-onsets.json` | Legal syllable onsets |
 | `phoneme-compose-gestures.json` | Phoneme → musical gesture (compose) |
 | `phoneme-wave-frequencies.json` | Phoneme frequency bands (wave speech) |
+| `syllabification.json` | Locale-specific syllabification rules (v0.3.0) |
+| `phoneme-timbre-profiles.json` | Phoneme → timbre profile table for offline synthesis (v0.3.0) |
 | `words/common.json` | Per-word syllable/stress/category overrides |
 
 ## Repository layout
