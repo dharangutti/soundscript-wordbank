@@ -1,0 +1,31 @@
+{
+  "$schema": "../schema/ci-fixtures.schema.json",
+  "version": 1,
+  "description": "50-word CI regression fixtures per locale. Overlap with corpus pilot and words/common.json is intentional.",
+  "fixtures": {
+    "en": [
+      "twinkle", "little", "star", "wonder", "wonderful", "diamond", "shining", "world",
+      "hello", "music", "singing", "happy", "return", "rebuild", "unhappy", "connect",
+      "disconnect", "exchange", "enable", "computer", "photograph", "beautiful", "together",
+      "another", "everything", "before", "away", "ago", "jingle", "bells", "above",
+      "table", "melody", "harmony", "time", "people", "way", "day", "man", "woman",
+      "life", "child", "school", "work", "home", "water", "food", "love", "friend", "night"
+    ],
+    "es": [
+      "hola", "mundo", "estrella", "pequeño", "brilla", "cielo", "hermosa", "canción",
+      "música", "mañana", "gracias", "amigo", "corazón", "noche", "día", "sol", "luna",
+      "feliz", "cantar", "niño", "familia", "escuela", "tiempo", "trabajo", "buenos",
+      "días", "noches", "pequeña", "hermoso", "brillante", "adiós", "amor", "casa",
+      "bien", "padre", "madre", "país", "persona", "vida", "agua", "ciudad", "mujer",
+      "hombre", "niña", "bueno", "nuevo", "grande", "ver", "hacer", "también"
+    ],
+    "fr": [
+      "bonjour", "bonsoir", "monde", "étoile", "petite", "brille", "chanson", "musique",
+      "belle", "merci", "français", "nuit", "jour", "soleil", "lune", "heureux",
+      "chanter", "enfant", "famille", "école", "temps", "travail", "magnifique",
+      "parler", "beau", "petit", "étoiles", "chansons", "belles", "petites", "france",
+      "étoilée", "maison", "bien", "père", "mère", "pays", "personne", "vie", "eau",
+      "ville", "femme", "homme", "fille", "bon", "nouveau", "grand", "voir", "faire", "aussi"
+    ]
+  }
+}

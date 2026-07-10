@@ -1,0 +1,9 @@
+{
+  "$schema": "../../../schema/lemmas.schema.json",
+  "corpusId": "2026.07",
+  "locale": "en",
+  "version": 0,
+  "status": "pilot",
+  "description": "Harvested lemma entries. Populated by future harvest pipeline; pilot list is pilot-1k.txt.",
+  "entries": []
+}
