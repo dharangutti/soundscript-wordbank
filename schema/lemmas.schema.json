@@ -28,7 +28,25 @@
           "trimStartMs": { "type": "number", "minimum": 0 },
           "trimEndMs": { "type": "number", "minimum": 0 },
           "gain": { "type": "number", "minimum": 0, "maximum": 4 },
-          "pitchSemitones": { "type": "number", "minimum": -24, "maximum": 24 }
+          "pitchSemitones": { "type": "number", "minimum": -24, "maximum": 24 },
+          "generator": {
+            "type": "string",
+            "description": "Tool that synthesized this pronunciation when there is no human recording, e.g. espeak-ng."
+          },
+          "generatorVersion": {
+            "type": "string",
+            "description": "Version of the generator tool used, for reproducibility."
+          },
+          "generatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "UTC timestamp when the pronunciation was generated."
+          },
+          "normalizerVersion": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "WordbankNormalizer algorithm version that produced the canonical WAV."
+          }
         },
         "additionalProperties": false
       }
