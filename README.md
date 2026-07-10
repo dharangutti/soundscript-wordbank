@@ -4,18 +4,26 @@ Deterministic linguistic data for [SoundScript](https://github.com/dharangutti/s
 
 SoundScript's engines are built around a strict determinism guarantee: the same input text must always produce the same output on every platform. Today much of that linguistic knowledge lives as hard-coded tables inside the main repository (`FunctionWords`, `PhonemeMapper`, `Syllabifier`, and others). This repository extracts that data into versioned JSON so it can evolve independently, be reviewed as data, and eventually be consumed at runtime by SoundScript.
 
-## What's included (v0.1.0)
+## What's included (v0.2.0)
 
-| File | Purpose | SoundScript source |
-|------|---------|-------------------|
-| `function-words.json` | Closed-class English function words | `SoundScript.Prosody.FunctionWords` |
-| `stress-prefixes.json` | Unstressed two-syllable prefixes | `SoundScript.Prosody.StressDetector` |
-| `word-prosody.json` | Word pitch, phrase contour, stress offsets, clamp bounds | `WordPitchTable`, `PhraseContourEngine`, `SyllableContourGenerator`, `ProsodyClamp` |
-| `grapheme-rules.json` | Grapheme → phoneme splitting rules | `PhonemeSplitter`, `GraphemePhonemeSplitter` |
-| `legal-onsets.json` | Legal English syllable onsets | `Syllabifier` |
-| `phoneme-compose-gestures.json` | Phoneme → musical gesture (V3.1 compose) | `PhonemeMapper` |
-| `phoneme-wave-frequencies.json` | Phoneme frequency bands (V7 wave speech) | `PhonemeFrequencyTable` |
-| `words/seed.json` | Optional per-word overrides (syllables, stress) | Future dictionary expansion |
+| Locale | Status | Notes |
+|--------|--------|-------|
+| `en` | Complete | 34-word `common.json` dictionary, full phoneme/prosody tables |
+| `es` | Starter | Spanish function words, grapheme rules, 10 demo word entries |
+| `fr` | Starter | French function words, grapheme rules, 10 demo word entries |
+
+Per-locale files:
+
+| File | Purpose |
+|------|---------|
+| `function-words.json` | Closed-class function words |
+| `stress-prefixes.json` | Prefixes that shift stress patterns |
+| `word-prosody.json` | Word pitch, phrase contour, stress offsets, clamp bounds |
+| `grapheme-rules.json` | Grapheme → phoneme splitting rules |
+| `legal-onsets.json` | Legal syllable onsets |
+| `phoneme-compose-gestures.json` | Phoneme → musical gesture (compose) |
+| `phoneme-wave-frequencies.json` | Phoneme frequency bands (wave speech) |
+| `words/common.json` | Per-word syllable/stress/category overrides |
 
 ## Repository layout
 
@@ -24,16 +32,12 @@ manifest.json              # top-level package manifest
 schema/                    # JSON Schema definitions
 data/
   en/                      # English locale pack
+  es/                      # Spanish locale pack (starter)
+  fr/                      # French locale pack (starter)
     locale.json            # locale manifest (file index)
-    function-words.json
-    stress-prefixes.json
-    word-prosody.json
-    grapheme-rules.json
-    legal-onsets.json
-    phoneme-compose-gestures.json
-    phoneme-wave-frequencies.json
+    ...
     words/
-      seed.json            # example word-entry overrides
+      common.json          # per-word overrides
 scripts/
   validate.py              # schema + cross-file validation
 ```

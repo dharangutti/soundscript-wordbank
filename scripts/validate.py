@@ -16,6 +16,17 @@ except ImportError as exc:  # pragma: no cover
 ROOT = Path(__file__).resolve().parent.parent
 SCHEMA_DIR = ROOT / "schema"
 
+FILE_SCHEMAS = {
+    "functionWords": "function-words.schema.json",
+    "stressPrefixes": "stress-prefixes.schema.json",
+    "wordProsody": "word-prosody.schema.json",
+    "graphemeRules": "grapheme-rules.schema.json",
+    "legalOnsets": "legal-onsets.schema.json",
+    "phonemeCompose": "phoneme-compose.schema.json",
+    "phonemeWave": "phoneme-wave.schema.json",
+    "wordEntries": "word-entries.schema.json",
+}
+
 
 def load_json(path: Path) -> object:
     with path.open(encoding="utf-8") as handle:
@@ -84,7 +95,6 @@ def cross_validate_locale(locale_dir: Path) -> list[str]:
     for rule in graphemes["singleLetters"]:
         referenced_phonemes.update(rule["phonemes"])
     special_letters = {rule["letter"] for rule in graphemes["singleLetters"]}
-    # Unlisted consonant letters map to themselves (PhonemeSplitter identity fallback).
     for letter in "bdfghjklmnprstvwz":
         if letter not in special_letters:
             referenced_phonemes.add(letter)
@@ -96,31 +106,31 @@ def cross_validate_locale(locale_dir: Path) -> list[str]:
     return errors
 
 
-def main() -> int:
-    checks: list[tuple[Path, Path]] = [
-        (ROOT / "manifest.json", SCHEMA_DIR / "manifest.schema.json"),
-        (ROOT / "data/en/locale.json", SCHEMA_DIR / "locale.schema.json"),
-        (ROOT / "data/en/function-words.json", SCHEMA_DIR / "function-words.schema.json"),
-        (ROOT / "data/en/stress-prefixes.json", SCHEMA_DIR / "stress-prefixes.schema.json"),
-        (ROOT / "data/en/word-prosody.json", SCHEMA_DIR / "word-prosody.schema.json"),
-        (ROOT / "data/en/grapheme-rules.json", SCHEMA_DIR / "grapheme-rules.schema.json"),
-        (ROOT / "data/en/legal-onsets.json", SCHEMA_DIR / "legal-onsets.schema.json"),
-        (ROOT / "data/en/phoneme-compose-gestures.json", SCHEMA_DIR / "phoneme-compose.schema.json"),
-        (ROOT / "data/en/phoneme-wave-frequencies.json", SCHEMA_DIR / "phoneme-wave.schema.json"),
-        (ROOT / "data/en/words/seed.json", SCHEMA_DIR / "word-entries.schema.json"),
-    ]
-
+def validate_locale(locale_dir: Path) -> list[str]:
     errors: list[str] = []
-    for data_path, schema_path in checks:
-        if not data_path.exists():
-            errors.append(f"Missing data file: {data_path}")
-            continue
-        if not schema_path.exists():
-            errors.append(f"Missing schema file: {schema_path}")
-            continue
-        errors.extend(validate_file(data_path, schema_path))
+    locale_manifest = load_json(locale_dir / "locale.json")
+    files = locale_manifest["files"]
 
-    errors.extend(cross_validate_locale(ROOT / "data/en"))
+    errors.extend(validate_file(locale_dir / "locale.json", SCHEMA_DIR / "locale.schema.json"))
+    for key, schema_name in FILE_SCHEMAS.items():
+        relative = files[key]
+        errors.extend(validate_file(locale_dir / relative, SCHEMA_DIR / schema_name))
+
+    errors.extend(cross_validate_locale(locale_dir))
+    return errors
+
+
+def main() -> int:
+    errors: list[str] = []
+    errors.extend(validate_file(ROOT / "manifest.json", SCHEMA_DIR / "manifest.schema.json"))
+
+    manifest = load_json(ROOT / "manifest.json")
+    for locale in manifest["locales"]:
+        locale_dir = ROOT / locale["path"]
+        if not locale_dir.exists():
+            errors.append(f"Missing locale directory: {locale_dir}")
+            continue
+        errors.extend(validate_locale(locale_dir))
 
     if errors:
         print("Validation failed:", file=sys.stderr)
@@ -128,7 +138,8 @@ def main() -> int:
             print(f"  - {error}", file=sys.stderr)
         return 1
 
-    print("All wordbank data files validated successfully.")
+    locale_count = len(manifest["locales"])
+    print(f"All wordbank data files validated successfully ({locale_count} locale(s)).")
     return 0
 
 

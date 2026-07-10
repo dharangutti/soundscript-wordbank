@@ -11,7 +11,7 @@
     "description": { "type": "string" },
     "prefixes": {
       "type": "array",
-      "items": { "type": "string", "pattern": "^[a-z]+$" }
+      "items": { "type": "string", "minLength": 1 }
     }
   },
   "additionalProperties": false

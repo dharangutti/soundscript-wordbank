@@ -2,6 +2,20 @@
 
 All notable changes to this repository are documented here.
 
+## [0.2.0] - 2026-07-10
+
+### Added
+
+- Expanded English dictionary: `data/en/words/common.json` (34 word overrides, replaces `seed.json`)
+- Spanish (`es`) locale pack — function words, grapheme rules, stress prefixes, demo word entries
+- French (`fr`) locale pack — function words, grapheme rules, stress prefixes, demo word entries
+- Validator now discovers and validates all locales from `manifest.json`
+
+### Changed
+
+- English locale version bumped to 0.2.0
+- Function-word and stress-prefix schemas accept accented characters
+
 ## [0.1.0] - 2026-07-10
 
 ### Added
@@ -21,4 +35,5 @@ Exported from [sound-script](https://github.com/dharangutti/sound-script) at ini
 - `SoundScript.Core.Phonetics` — legal syllable onsets
 - `SoundScript.Wave.Prosody` — phoneme frequency table
 
+[0.2.0]: https://github.com/dharangutti/soundscript-wordbank/releases/tag/v0.2.0
 [0.1.0]: https://github.com/dharangutti/soundscript-wordbank/releases/tag/v0.1.0
