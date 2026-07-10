@@ -52,12 +52,47 @@ HARVEST_MANIFEST: dict[str, str] = {
     "with": "En-uk-with.ogg",
     "woman": "En-uk-woman.ogg",
     "work": "En-us-work.ogg",
+    # Jingle Bells word set (v0.7.0) — Lingua Libre CC0 single-word recordings.
+    "a": "LL-Q1860 (eng)-Grendelkhan-a.wav",
+    "all": "LL-Q1860 (eng)-Grendelkhan-all.wav",
+    "and": "LL-Q1860 (eng)-Grendelkhan-and.wav",
+    "bells": "LL-Q1860 (eng)-Grendelkhan-bells.wav",
+    "bright": "LL-Q1860 (eng)-Grendelkhan-bright.wav",
+    "fields": "LL-Q1860 (eng)-Grendelkhan-fields.wav",
+    "fun": "LL-Q1860 (eng)-Grendelkhan-fun.wav",
+    "go": "LL-Q1860 (eng)-Grendelkhan-go.wav",
+    "horse": "LL-Q1860 (eng)-Grendelkhan-horse.wav",
+    "in": "LL-Q1860 (eng)-Grendelkhan-in.wav",
+    "is": "LL-Q1860 (eng)-Grendelkhan-is.wav",
+    "laughing": "LL-Q1860 (eng)-Wodencafe-laughing.wav",
+    "making": "LL-Q1860 (eng)-Grendelkhan-making.wav",
+    "oh": "LL-Q1860 (eng)-Wodencafe-oh.wav",
+    "on": "LL-Q1860 (eng)-Grendelkhan-on.wav",
+    "one": "LL-Q1860 (eng)-Grendelkhan-one.wav",
+    "open": "LL-Q1860 (eng)-Samuel Muldoon (Muldoonsamuel55)-open.wav",
+    "over": "LL-Q1860 (eng)-Grendelkhan-over.wav",
+    "ride": "LL-Q1860 (eng)-Grendelkhan-ride.wav",
+    "ring": "LL-Q1860 (eng)-Grendelkhan-ring.wav",
+    "sing": "LL-Q1860 (eng)-Grendelkhan-sing.wav",
+    "sleigh": "LL-Q1860 (eng)-Arlo Barnes-sleigh.wav",
+    "snow": "LL-Q1860 (eng)-Grendelkhan-snow.wav",
+    "song": "LL-Q1860 (eng)-Grendelkhan-song.wav",
+    "spirits": "LL-Q1860 (eng)-Grendelkhan-spirits.wav",
+    "the": "LL-Q1860 (eng)-Grendelkhan-the.wav",
+    "through": "LL-Q1860 (eng)-Grendelkhan-through.wav",
+    "to": "LL-Q1860 (eng)-Grendelkhan-to.wav",
+    "tonight": "LL-Q1860 (eng)-Grendelkhan-tonight.wav",
+    "we": "LL-Q1860 (eng)-Grendelkhan-we.wav",
+    "what": "LL-Q1860 (eng)-Grendelkhan-what.wav",
 }
 
 # Lemmas without a standalone Commons clip yet — keep normalized WAV in-repo (CC0 pilot).
 SUPPLEMENTAL_PILOT: dict[str, str] = {
     "test": "Pilot clip (v0.6.1) — no standalone CC-BY/CC0 Commons file found for lemma 'test'",
     "world": "Pilot clip (v0.6.1) — no standalone CC-BY/CC0 Commons file found for lemma 'world'",
+    "dashing": "Pilot clip (v0.7.0) — no standalone CC-BY/CC0 Commons file found for lemma 'dashing'",
+    "sleighing": "Pilot clip (v0.7.0) — no standalone CC-BY/CC0 Commons file found for lemma 'sleighing'",
+    "bobtail": "Pilot clip (v0.7.0) — no standalone CC-BY/CC0 Commons file found for lemma 'bobtail'",
 }
 
 
@@ -110,7 +145,9 @@ def normalize_license(license_name: str) -> str:
 
 
 def strip_html(text: str) -> str:
-    return re.sub(r"<[^>]+>", "", text).strip()
+    stripped = re.sub(r"<[^>]+>", "", text)
+    collapsed = re.sub(r"\s*\n\s*", "; ", stripped)
+    return re.sub(r"\s+", " ", collapsed).strip()
 
 
 def download_ogg(filename: str, destination: Path) -> None:
