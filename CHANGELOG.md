@@ -2,6 +2,18 @@
 
 All notable changes to this repository are documented here.
 
+## [0.4.0] - 2026-07-10
+
+### Added
+
+- Expanded Spanish `words/common.json` to 34 entries (from 10 demo words)
+- Expanded French `words/common.json` to 34 entries (from 10 demo words)
+
+### Changed
+
+- All locale packs bumped to v0.4.0
+- `es` and `fr` status upgraded from starter to expanded locale packs
+
 ## [0.3.0] - 2026-07-10
 
 ### Added
@@ -48,6 +60,7 @@ Exported from [sound-script](https://github.com/dharangutti/sound-script) at ini
 - `SoundScript.Core.Phonetics` — legal syllable onsets
 - `SoundScript.Wave.Prosody` — phoneme frequency table
 
+[0.4.0]: https://github.com/dharangutti/soundscript-wordbank/releases/tag/v0.4.0
 [0.3.0]: https://github.com/dharangutti/soundscript-wordbank/releases/tag/v0.3.0
 [0.2.0]: https://github.com/dharangutti/soundscript-wordbank/releases/tag/v0.2.0
 [0.1.0]: https://github.com/dharangutti/soundscript-wordbank/releases/tag/v0.1.0
