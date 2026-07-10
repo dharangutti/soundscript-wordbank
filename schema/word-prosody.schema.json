@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://soundscript.net/schemas/wordbank/word-prosody.schema.json",
+  "title": "Word Prosody",
+  "type": "object",
+  "required": [
+    "version",
+    "locale",
+    "centerMidi",
+    "wordPitchOffsets",
+    "phraseContours",
+    "syllableStressOffsets",
+    "clamp"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "integer", "minimum": 1 },
+    "locale": { "type": "string" },
+    "centerMidi": { "type": "integer", "minimum": 0, "maximum": 127 },
+    "wordPitchOffsets": {
+      "type": "object",
+      "required": ["content", "function"],
+      "properties": {
+        "content": { "$ref": "#/$defs/positionOffsets" },
+        "function": { "$ref": "#/$defs/positionOffsets" }
+      }
+    },
+    "phraseContours": {
+      "type": "object",
+      "required": ["statement", "question", "listItem"],
+      "properties": {
+        "statement": { "$ref": "#/$defs/ramp" },
+        "question": { "$ref": "#/$defs/ramp" },
+        "listItem": {
+          "type": "object",
+          "required": ["step", "max"],
+          "properties": {
+            "step": { "type": "integer" },
+            "max": { "type": "integer" }
+          }
+        }
+      }
+    },
+    "syllableStressOffsets": {
+      "type": "object",
+      "required": ["primary", "secondary", "unstressed"],
+      "properties": {
+        "primary": { "type": "integer" },
+        "secondary": { "type": "integer" },
+        "unstressed": { "type": "integer" }
+      }
+    },
+    "clamp": {
+      "type": "object",
+      "required": ["maxAdjacentJump", "maxPhraseRange"],
+      "properties": {
+        "maxAdjacentJump": { "type": "integer", "minimum": 1 },
+        "maxPhraseRange": { "type": "integer", "minimum": 1 }
+      }
+    }
+  },
+  "$defs": {
+    "positionOffsets": {
+      "type": "object",
+      "required": ["start", "middle", "end"],
+      "properties": {
+        "start": { "type": "integer" },
+        "middle": { "type": "integer" },
+        "end": { "type": "integer" }
+      }
+    },
+    "ramp": {
+      "type": "object",
+      "required": ["from", "to"],
+      "properties": {
+        "from": { "type": "integer" },
+        "to": { "type": "integer" }
+      }
+    }
+  },
+  "additionalProperties": false
+}

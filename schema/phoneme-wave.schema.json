@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://soundscript.net/schemas/wordbank/phoneme-wave.schema.json",
+  "title": "Phoneme Wave Frequencies",
+  "type": "object",
+  "required": ["version", "locale", "default", "phonemes"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "integer", "minimum": 1 },
+    "locale": { "type": "string" },
+    "description": { "type": "string" },
+    "default": { "$ref": "#/$defs/range" },
+    "phonemes": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          { "$ref": "#/$defs/range" },
+          {
+            "type": "object",
+            "required": ["phoneme"],
+            "properties": {
+              "phoneme": { "type": "string", "minLength": 1 }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "range": {
+      "type": "object",
+      "required": ["minHz", "maxHz", "durationBeats", "class"],
+      "properties": {
+        "minHz": { "type": "number", "minimum": 0 },
+        "maxHz": { "type": "number", "minimum": 0 },
+        "durationBeats": { "type": "number", "minimum": 0 },
+        "class": {
+          "type": "string",
+          "enum": ["vowel", "nasal", "liquid", "plosive", "fricative"]
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

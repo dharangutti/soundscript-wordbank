@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://soundscript.net/schemas/wordbank/locale.schema.json",
+  "title": "Locale Manifest",
+  "type": "object",
+  "required": ["code", "name", "version", "files"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "code": { "type": "string" },
+    "name": { "type": "string" },
+    "version": { "type": "string" },
+    "files": {
+      "type": "object",
+      "required": [
+        "functionWords",
+        "stressPrefixes",
+        "wordProsody",
+        "graphemeRules",
+        "legalOnsets",
+        "phonemeCompose",
+        "phonemeWave",
+        "wordEntries"
+      ],
+      "properties": {
+        "functionWords": { "type": "string" },
+        "stressPrefixes": { "type": "string" },
+        "wordProsody": { "type": "string" },
+        "graphemeRules": { "type": "string" },
+        "legalOnsets": { "type": "string" },
+        "phonemeCompose": { "type": "string" },
+        "phonemeWave": { "type": "string" },
+        "wordEntries": { "type": "string" }
+      }
+    }
+  },
+  "additionalProperties": false
+}

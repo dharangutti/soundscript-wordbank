@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://soundscript.net/schemas/wordbank/function-words.schema.json",
+  "title": "Function Words",
+  "type": "object",
+  "required": ["version", "locale", "categories"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "integer", "minimum": 1 },
+    "locale": { "type": "string" },
+    "description": { "type": "string" },
+    "categories": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string", "pattern": "^[a-z]+$" }
+      }
+    }
+  },
+  "additionalProperties": false
+}

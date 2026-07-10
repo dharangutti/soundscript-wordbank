@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://soundscript.net/schemas/wordbank/stress-prefixes.schema.json",
+  "title": "Stress Prefixes",
+  "type": "object",
+  "required": ["version", "locale", "prefixes"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "integer", "minimum": 1 },
+    "locale": { "type": "string" },
+    "description": { "type": "string" },
+    "prefixes": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z]+$" }
+    }
+  },
+  "additionalProperties": false
+}
