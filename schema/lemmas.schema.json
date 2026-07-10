@@ -19,7 +19,16 @@
         "properties": {
           "lemma": { "type": "string", "minLength": 1 },
           "license": { "enum": ["CC0-1.0", "CC-BY-4.0"] },
-          "source": { "type": "string" }
+          "source": { "type": "string" },
+          "attribution": { "type": "string" },
+          "audio": {
+            "type": "string",
+            "description": "Path relative to corpus root, e.g. audio/en/hello.wav"
+          },
+          "trimStartMs": { "type": "number", "minimum": 0 },
+          "trimEndMs": { "type": "number", "minimum": 0 },
+          "gain": { "type": "number", "minimum": 0, "maximum": 4 },
+          "pitchSemitones": { "type": "number", "minimum": -24, "maximum": 24 }
         },
         "additionalProperties": false
       }

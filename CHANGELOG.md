@@ -2,6 +2,19 @@
 
 All notable changes to this repository are documented here.
 
+## [0.6.0] - 2026-07-10
+
+### Added
+
+- Corpus pronunciation audio: `corpus/v2026.07/audio/en/` (hello, welcome, test, world)
+- Lemma schema fields: `audio`, `trimStartMs`, `trimEndMs`, `gain`, `pitchSemitones`, `attribution`
+- English pilot harvest: 4 CC0/CC-BY entries in `en/lemmas.json`
+
+### Changed
+
+- Validator checks corpus audio file paths and trim bounds
+- Package version bumped to v0.6.0
+
 ## [0.5.0] - 2026-07-10
 
 ### Added
