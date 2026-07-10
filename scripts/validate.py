@@ -22,8 +22,10 @@ FILE_SCHEMAS = {
     "wordProsody": "word-prosody.schema.json",
     "graphemeRules": "grapheme-rules.schema.json",
     "legalOnsets": "legal-onsets.schema.json",
+    "syllabification": "syllabification.schema.json",
     "phonemeCompose": "phoneme-compose.schema.json",
     "phonemeWave": "phoneme-wave.schema.json",
+    "phonemeTimbre": "phoneme-timbre.schema.json",
     "wordEntries": "word-entries.schema.json",
 }
 
@@ -78,8 +80,10 @@ def cross_validate_locale(locale_dir: Path) -> list[str]:
 
     compose = load_json(locale_dir / files["phonemeCompose"])
     wave = load_json(locale_dir / files["phonemeWave"])
+    timbre = load_json(locale_dir / files["phonemeTimbre"])
     compose_phonemes = {item["phoneme"] for item in compose["phonemes"]}
     wave_phonemes = {item["phoneme"] for item in wave["phonemes"]}
+    timbre_phonemes = {item["phoneme"] for item in timbre["phonemes"]}
     if compose_phonemes != wave_phonemes:
         missing_in_wave = sorted(compose_phonemes - wave_phonemes)
         missing_in_compose = sorted(wave_phonemes - compose_phonemes)
@@ -87,6 +91,11 @@ def cross_validate_locale(locale_dir: Path) -> list[str]:
             errors.append(f"Phoneme set mismatch: missing in wave table: {', '.join(missing_in_wave)}")
         if missing_in_compose:
             errors.append(f"Phoneme set mismatch: missing in compose table: {', '.join(missing_in_compose)}")
+
+    if timbre_phonemes != compose_phonemes:
+        missing = sorted(compose_phonemes - timbre_phonemes)
+        if missing:
+            errors.append(f"Timbre table missing phonemes: {', '.join(missing)}")
 
     graphemes = load_json(locale_dir / files["graphemeRules"])
     referenced_phonemes: set[str] = set()
