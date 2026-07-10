@@ -2,6 +2,19 @@
 
 All notable changes to this repository are documented here.
 
+## [0.6.2] - 2026-07-10
+
+### Added
+
+- **34** new English corpus pronunciations for the full **Jingle Bells** word set (`corpus/v2026.07/audio/en/`, up from 32 to **66**)
+- Lingua Libre CC0 recordings for closed-class/function words (`a`, `all`, `and`, `in`, `is`, `on`, `over`, `the`, `to`, `we`) plus song vocabulary (`bells`, `bright`, `fields`, `fun`, `go`, `horse`, `laughing`, `making`, `oh`, `one`, `open`, `ride`, `ring`, `sing`, `sleigh`, `snow`, `song`, `spirits`, `through`, `tonight`, `what`)
+- Pilot placeholder clips for `dashing`, `sleighing`, `bobtail` (no standalone CC0/CC-BY Commons clip found; synthesized offline pending harvest, same pattern as `test`/`world`)
+
+### Changed
+
+- `en/lemmas.json` v3 — CI fixture coverage: 27/50 words now have human audio
+- `harvest_commons_en.py` — `HARVEST_MANIFEST` extended with Lingua Libre (`LL-Q1860 (eng)-*.wav`) sources; `strip_html()` now collapses multi-line Commons attribution lists into a single readable string
+
 ## [0.6.1] - 2026-07-10
 
 ### Added
