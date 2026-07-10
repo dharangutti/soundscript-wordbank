@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://soundscript.net/schemas/wordbank/phoneme-compose.schema.json",
+  "title": "Phoneme Compose Gestures",
+  "type": "object",
+  "required": ["version", "locale", "defaultGesture", "phonemes"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "integer", "minimum": 1 },
+    "locale": { "type": "string" },
+    "description": { "type": "string" },
+    "defaultGesture": { "$ref": "#/$defs/gesture" },
+    "phonemes": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          { "$ref": "#/$defs/gesture" },
+          {
+            "type": "object",
+            "required": ["phoneme"],
+            "properties": {
+              "phoneme": { "type": "string", "minLength": 1 }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "gesture": {
+      "type": "object",
+      "required": ["kind", "pitch", "octave", "duration"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["staccato", "legato", "accent", "swell", "fade"]
+        },
+        "pitch": {
+          "type": "string",
+          "enum": ["C", "D", "E", "F", "G", "A", "B"]
+        },
+        "octave": { "type": "integer", "minimum": 0, "maximum": 9 },
+        "duration": {
+          "type": "string",
+          "enum": ["whole", "half", "quarter", "eighth", "sixteenth"]
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
