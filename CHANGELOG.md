@@ -2,6 +2,18 @@
 
 All notable changes to this repository are documented here.
 
+## [0.6.1] - 2026-07-10
+
+### Added
+
+- **32** English corpus pronunciations under `corpus/v2026.07/audio/en/` (up from 4)
+- `scripts/harvest_commons_en.py` — Wikimedia Commons harvester (CC0 / CC-BY only, rejects CC-BY-SA)
+
+### Changed
+
+- `en/lemmas.json` v2 — CI fixture coverage: 22/50 words now have human audio
+- `welcome` switched to `En-uk-welcome.ogg` (US file was CC-BY-SA)
+
 ## [0.6.0] - 2026-07-10
 
 ### Added

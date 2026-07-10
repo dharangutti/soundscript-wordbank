@@ -4,12 +4,12 @@ Deterministic linguistic data for [SoundScript](https://github.com/dharangutti/s
 
 **Scope:** A deterministic, offline, multi-language corpus of curated per-word human audio with G2P fallback and DSP transforms, used to generate reproducible vocal stems without relying on eSpeak.
 
-## What's included (v0.6.0)
+## What's included (v0.6.1)
 
 | Layer | Status | Notes |
 |-------|--------|-------|
-| Locale packs (`data/`) | v0.6.0 | `en` complete; `es`/`fr` expanded (50+ CI fixture words each) |
-| Corpus (`corpus/v2026.07/`) | Pilot | 4 English pronunciations (CC0/CC-BY) + G2P fallback in engine |
+| Locale packs (`data/`) | v0.6.1 | `en` complete; `es`/`fr` expanded (50+ CI fixture words each) |
+| Corpus (`corpus/v2026.07/`) | Pilot | **32** English pronunciations (Commons CC0/CC-BY; `scripts/harvest_commons_en.py`) |
 | CI fixtures (`fixtures/ci-50.json`) | Active | 50 regression words per locale |
 
 | Locale | Status | Notes |
