@@ -9,8 +9,10 @@ corpus/v2026.07/
   manifest.json       # corpus manifest (see docs/MANIFEST.md)
   en/
     pilot-1k.txt      # 1000 curated lemmas (one per line, Phase 7)
-    lemmas.json       # harvested entries (empty at pilot start)
-    SOURCES.md        # attribution for CC-BY imports
+    lemmas.json       # harvested entries (audio metadata + license)
+    SOURCES.md        # attribution for CC0 / CC-BY imports
+  audio/
+    en/               # 44.1 kHz mono 16-bit PCM WAV per lemma
   es/
     lemmas.json       # stub — pilot list deferred to v2026.08
   fr/
@@ -21,7 +23,7 @@ corpus/v2026.07/
 
 | Locale | Pilot list | Lemma harvest |
 |--------|------------|---------------|
-| `en` | 1000 lemmas (`pilot-1k.txt`) | Not started (`entries: []`) |
+| `en` | 1000 lemmas (`pilot-1k.txt`) | Pilot harvest started (4 pronunciations + G2P fallback) |
 | `es` | Deferred | Stub only |
 | `fr` | Deferred | Stub only |
 

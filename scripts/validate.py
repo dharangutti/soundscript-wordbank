@@ -159,6 +159,20 @@ def validate_corpus() -> list[str]:
             continue
 
         errors.extend(validate_file(lemma_path, SCHEMA_DIR / "lemmas.schema.json"))
+        lemmas_doc = load_json(lemma_path)
+        for entry in lemmas_doc.get("entries", []):
+            audio = entry.get("audio")
+            if not audio:
+                continue
+            audio_path = CORPUS_DIR / audio
+            if not audio_path.is_file():
+                errors.append(f"{lemma_path}: missing audio file for '{entry['lemma']}': {audio_path}")
+            trim_start = entry.get("trimStartMs", 0)
+            trim_end = entry.get("trimEndMs")
+            if trim_end is not None and trim_end <= trim_start:
+                errors.append(
+                    f"{lemma_path}: lemma '{entry['lemma']}' trimEndMs must exceed trimStartMs"
+                )
 
         pilot_file = locale.get("pilotFile")
         if pilot_file:

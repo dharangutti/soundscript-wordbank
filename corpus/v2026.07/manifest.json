@@ -25,6 +25,6 @@
   ],
   "engineCompatibility": {
     "soundscriptMin": "8.0.0",
-    "wordbankMin": "0.5.0"
+    "wordbankMin": "0.6.0"
   }
 }
