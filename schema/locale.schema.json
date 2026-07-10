@@ -17,8 +17,10 @@
         "wordProsody",
         "graphemeRules",
         "legalOnsets",
+        "syllabification",
         "phonemeCompose",
         "phonemeWave",
+        "phonemeTimbre",
         "wordEntries"
       ],
       "properties": {
@@ -27,8 +29,10 @@
         "wordProsody": { "type": "string" },
         "graphemeRules": { "type": "string" },
         "legalOnsets": { "type": "string" },
+        "syllabification": { "type": "string" },
         "phonemeCompose": { "type": "string" },
         "phonemeWave": { "type": "string" },
+        "phonemeTimbre": { "type": "string" },
         "wordEntries": { "type": "string" }
       }
     }

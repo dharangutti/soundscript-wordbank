@@ -2,6 +2,19 @@
 
 All notable changes to this repository are documented here.
 
+## [0.3.0] - 2026-07-10
+
+### Added
+
+- `syllabification.json` per locale — vowel sets, accented vowels, nucleus digraphs (French), silent-e and consonant-le toggles
+- `phoneme-timbre-profiles.json` per locale — exported built-in timbre table from `SoundScript.Timbre`
+- JSON Schema definitions for syllabification and phoneme-timbre data files
+- Validator checks timbre phoneme parity with compose gesture table
+
+### Changed
+
+- All locale packs bumped to v0.3.0 with new file references in `locale.json`
+
 ## [0.2.0] - 2026-07-10
 
 ### Added
@@ -35,5 +48,6 @@ Exported from [sound-script](https://github.com/dharangutti/sound-script) at ini
 - `SoundScript.Core.Phonetics` — legal syllable onsets
 - `SoundScript.Wave.Prosody` — phoneme frequency table
 
+[0.3.0]: https://github.com/dharangutti/soundscript-wordbank/releases/tag/v0.3.0
 [0.2.0]: https://github.com/dharangutti/soundscript-wordbank/releases/tag/v0.2.0
 [0.1.0]: https://github.com/dharangutti/soundscript-wordbank/releases/tag/v0.1.0
