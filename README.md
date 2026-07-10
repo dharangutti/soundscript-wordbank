@@ -4,13 +4,13 @@ Deterministic linguistic data for [SoundScript](https://github.com/dharangutti/s
 
 SoundScript's engines are built around a strict determinism guarantee: the same input text must always produce the same output on every platform. Today much of that linguistic knowledge lives as hard-coded tables inside the main repository (`FunctionWords`, `PhonemeMapper`, `Syllabifier`, and others). This repository extracts that data into versioned JSON so it can evolve independently, be reviewed as data, and eventually be consumed at runtime by SoundScript.
 
-## What's included (v0.3.0)
+## What's included (v0.4.0)
 
 | Locale | Status | Notes |
 |--------|--------|-------|
 | `en` | Complete | 34-word `common.json` dictionary, full phoneme/prosody/timbre tables |
-| `es` | Starter | Spanish function words, grapheme rules, locale syllabification, 10 demo word entries |
-| `fr` | Starter | French function words, grapheme rules, nasal digraph syllabification, 10 demo word entries |
+| `es` | Expanded | 34-word `common.json`, locale syllabification, full phoneme tables |
+| `fr` | Expanded | 34-word `common.json`, nasal digraph syllabification, full phoneme tables |
 
 Per-locale files:
 
@@ -59,6 +59,19 @@ CI runs the same validator on every push and pull request.
 2. **Rule-first** — heuristics and closed word lists are the default; per-word dictionary entries are optional overrides.
 3. **Engine-agnostic JSON** — schemas describe linguistic facts, not C# types. SoundScript loaders map JSON to engine tables.
 4. **Locale packs** — `data/<locale>/` holds a self-contained pack; add `data/es/`, `data/fr/`, etc. as languages are supported.
+
+## Runtime loading (SoundScript v0.4+)
+
+SoundScript can load locale packs directly from a wordbank checkout at runtime:
+
+```bash
+export WORDBANK_DIR=./wordbank
+dotnet run --project src/SoundScript.Cli -- prosody "Hola mundo" out.mid --locale es
+# or
+dotnet run --project src/SoundScript.Cli -- compose "Bonjour" out.mid --wordbank-dir ./wordbank --locale fr
+```
+
+Embedded packs in `SoundScript.Wordbank/Data/` remain the default when no directory is supplied.
 
 ## Relationship to SoundScript
 
