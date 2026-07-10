@@ -2,6 +2,23 @@
 
 All notable changes to this repository are documented here.
 
+## [0.5.0] - 2026-07-10
+
+### Added
+
+- Corpus pilot layout: `corpus/v2026.07/` with manifest, lemma stubs, and English `pilot-1k.txt` (1000 lemmas)
+- CI fixtures: `fixtures/ci-50.json` (50 words per locale)
+- Governance docs: `docs/VERSIONING.md`, `docs/MANIFEST.md`, `docs/INSTALL.md`, `LICENSE-POLICY.md`
+- Schemas: `corpus-manifest`, `lemmas`, `ci-fixtures`
+- `scripts/curate_pilot_1k.py`, `scripts/package-release.sh`
+- GitHub Actions release workflow (zip on tag)
+
+### Changed
+
+- Expanded `es`/`fr` `words/common.json` to 50+ entries (CI fixture coverage)
+- Validator checks corpus, pilot size, and fixture overlap
+- Package version bumped to v0.5.0
+
 ## [0.4.0] - 2026-07-10
 
 ### Added
@@ -60,6 +77,7 @@ Exported from [sound-script](https://github.com/dharangutti/sound-script) at ini
 - `SoundScript.Core.Phonetics` — legal syllable onsets
 - `SoundScript.Wave.Prosody` — phoneme frequency table
 
+[0.5.0]: https://github.com/dharangutti/soundscript-wordbank/releases/tag/v0.5.0
 [0.4.0]: https://github.com/dharangutti/soundscript-wordbank/releases/tag/v0.4.0
 [0.3.0]: https://github.com/dharangutti/soundscript-wordbank/releases/tag/v0.3.0
 [0.2.0]: https://github.com/dharangutti/soundscript-wordbank/releases/tag/v0.2.0

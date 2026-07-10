@@ -15,6 +15,8 @@ except ImportError as exc:  # pragma: no cover
 
 ROOT = Path(__file__).resolve().parent.parent
 SCHEMA_DIR = ROOT / "schema"
+CORPUS_DIR = ROOT / "corpus" / "v2026.07"
+FIXTURES_PATH = ROOT / "fixtures" / "ci-50.json"
 
 FILE_SCHEMAS = {
     "functionWords": "function-words.schema.json",
@@ -129,6 +131,92 @@ def validate_locale(locale_dir: Path) -> list[str]:
     return errors
 
 
+def load_pilot_lemmas(corpus_locale_dir: Path, pilot_file: str) -> set[str]:
+    path = corpus_locale_dir / pilot_file
+    if not path.exists():
+        return set()
+    return {
+        line.strip().lower()
+        for line in path.read_text(encoding="utf-8").splitlines()
+        if line.strip() and not line.startswith("#")
+    }
+
+
+def validate_corpus() -> list[str]:
+    errors: list[str] = []
+    manifest_path = CORPUS_DIR / "manifest.json"
+    if not manifest_path.exists():
+        return errors
+
+    errors.extend(validate_file(manifest_path, SCHEMA_DIR / "corpus-manifest.schema.json"))
+    manifest = load_json(manifest_path)
+
+    for locale in manifest["locales"]:
+        locale_dir = CORPUS_DIR / locale["path"]
+        lemma_path = locale_dir / locale["lemmaFile"]
+        if not lemma_path.exists():
+            errors.append(f"Missing corpus lemma file: {lemma_path}")
+            continue
+
+        errors.extend(validate_file(lemma_path, SCHEMA_DIR / "lemmas.schema.json"))
+
+        pilot_file = locale.get("pilotFile")
+        if pilot_file:
+            pilot_path = locale_dir / pilot_file
+            if not pilot_path.exists():
+                errors.append(f"Missing corpus pilot file: {pilot_path}")
+                continue
+
+            pilot_lemmas = load_pilot_lemmas(locale_dir, pilot_file)
+            if len(pilot_lemmas) != 1000:
+                errors.append(f"{pilot_path}: expected 1000 unique pilot lemmas, found {len(pilot_lemmas)}")
+
+    return errors
+
+
+def validate_fixtures(manifest: dict) -> list[str]:
+    errors: list[str] = []
+    if not FIXTURES_PATH.exists():
+        return errors
+
+    errors.extend(validate_file(FIXTURES_PATH, SCHEMA_DIR / "ci-fixtures.schema.json"))
+    fixtures = load_json(FIXTURES_PATH)
+    fixture_map: dict[str, list[str]] = fixtures["fixtures"]
+
+    locale_codes = {locale["code"] for locale in manifest["locales"]}
+    for code in fixture_map:
+        if code not in locale_codes:
+            errors.append(f"{FIXTURES_PATH}: fixture locale '{code}' not in package manifest")
+
+    pilot_en = load_pilot_lemmas(CORPUS_DIR / "en", "pilot-1k.txt") if CORPUS_DIR.exists() else set()
+
+    for locale in manifest["locales"]:
+        code = locale["code"]
+        words = fixture_map.get(code)
+        if words is None:
+            errors.append(f"{FIXTURES_PATH}: missing fixture list for locale '{code}'")
+            continue
+
+        if len(words) != 50:
+            errors.append(f"{FIXTURES_PATH}: locale '{code}' must have exactly 50 fixture words")
+
+        locale_dir = ROOT / locale["path"]
+        locale_manifest = load_json(locale_dir / "locale.json")
+        word_entries = load_json(locale_dir / locale_manifest["files"]["wordEntries"])
+        common_words = {entry["word"].lower() for entry in word_entries.get("entries", [])}
+
+        for word in words:
+            lower = word.lower()
+            in_common = lower in common_words
+            in_pilot = code == "en" and lower in pilot_en
+            if not in_common and not in_pilot:
+                errors.append(
+                    f"{FIXTURES_PATH}: fixture word '{word}' ({code}) not in words/common.json or en pilot list"
+                )
+
+    return errors
+
+
 def main() -> int:
     errors: list[str] = []
     errors.extend(validate_file(ROOT / "manifest.json", SCHEMA_DIR / "manifest.schema.json"))
@@ -141,6 +229,9 @@ def main() -> int:
             continue
         errors.extend(validate_locale(locale_dir))
 
+    errors.extend(validate_corpus())
+    errors.extend(validate_fixtures(manifest))
+
     if errors:
         print("Validation failed:", file=sys.stderr)
         for error in errors:
@@ -148,7 +239,8 @@ def main() -> int:
         return 1
 
     locale_count = len(manifest["locales"])
-    print(f"All wordbank data files validated successfully ({locale_count} locale(s)).")
+    corpus_note = " + corpus v2026.07" if CORPUS_DIR.exists() else ""
+    print(f"All wordbank data files validated successfully ({locale_count} locale(s){corpus_note}).")
     return 0
 
 

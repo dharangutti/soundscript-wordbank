@@ -4,13 +4,19 @@ Deterministic linguistic data for [SoundScript](https://github.com/dharangutti/s
 
 SoundScript's engines are built around a strict determinism guarantee: the same input text must always produce the same output on every platform. Today much of that linguistic knowledge lives as hard-coded tables inside the main repository (`FunctionWords`, `PhonemeMapper`, `Syllabifier`, and others). This repository extracts that data into versioned JSON so it can evolve independently, be reviewed as data, and eventually be consumed at runtime by SoundScript.
 
-## What's included (v0.4.0)
+## What's included (v0.5.0)
+
+| Layer | Status | Notes |
+|-------|--------|-------|
+| Locale packs (`data/`) | v0.5.0 | `en` complete; `es`/`fr` expanded (50+ CI fixture words each) |
+| Corpus (`corpus/v2026.07/`) | Pilot | English 1k lemma pilot list; lemma harvest not started |
+| CI fixtures (`fixtures/ci-50.json`) | Active | 50 regression words per locale |
 
 | Locale | Status | Notes |
 |--------|--------|-------|
-| `en` | Complete | 34-word `common.json` dictionary, full phoneme/prosody/timbre tables |
-| `es` | Expanded | 34-word `common.json`, locale syllabification, full phoneme tables |
-| `fr` | Expanded | 34-word `common.json`, nasal digraph syllabification, full phoneme tables |
+| `en` | Complete | 34-word `common.json` + 1k pilot lemmas |
+| `es` | Expanded | 50-word CI fixture coverage in `common.json` |
+| `fr` | Expanded | 50-word CI fixture coverage in `common.json` |
 
 Per-locale files:
 
@@ -32,16 +38,13 @@ Per-locale files:
 ```
 manifest.json              # top-level package manifest
 schema/                    # JSON Schema definitions
-data/
-  en/                      # English locale pack
-  es/                      # Spanish locale pack (starter)
-  fr/                      # French locale pack (starter)
-    locale.json            # locale manifest (file index)
-    ...
-    words/
-      common.json          # per-word overrides
+data/                      # locale packs (runtime default for SoundScript)
+corpus/v2026.07/           # pilot corpus snapshot (see docs/VERSIONING.md)
+fixtures/ci-50.json        # CI regression word list
+docs/                      # VERSIONING, MANIFEST, INSTALL guides
 scripts/
   validate.py              # schema + cross-file validation
+  package-release.sh       # build release zip
 ```
 
 ## Validation
